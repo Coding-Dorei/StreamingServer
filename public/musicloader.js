@@ -8,7 +8,8 @@ currentPlaying,
 files,
 nowPlaying,
 musicLength,
-list
+list,
+musicInfo
 
 function init(){
     player = document.getElementById('player')
@@ -29,7 +30,7 @@ function init(){
             PlayPause()
         }
     }
-    fetch("http://localhost/music/getList").then((res)=>{
+    fetch("http://192.168.0.7:8080/music/getList").then((res)=>{
         return res.json()
     }).then((data)=>{
         files = data
@@ -40,9 +41,14 @@ function init(){
 }
 
 function load(){
-    player.src = `http://localhost/music?id=${currentPlaying}`
+    player.src = `http://192.168.0.7:8080/music?id=${currentPlaying}`
     player.load()
-    nowPlaying.innerHTML = files[currentPlaying].name
+    fetch('http://192.168.0.7:8080/music/getMetadata?id='+currentPlaying).then((res)=>{
+        return res.json()
+    }).then((info)=>{
+        musicInfo = info['music-metadata']
+        nowPlaying.innerHTML = `${musicInfo['artist']} - ${musicInfo['title']}`
+    })
     sec = 0
     min = 0
 }

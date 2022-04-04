@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const musicDir = "C:/Users/lkjui/Music"
+const musicDir = "./Music"
 
 let hierarchy = []
 
@@ -33,5 +33,4 @@ function fileList(dir,dirName){
 }
 scanDir(musicDir,hierarchy)
 fileList(hierarchy,musicDir)
-
 module.exports = allFiles
