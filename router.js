@@ -13,7 +13,6 @@ router.get('/music',(req,res)=>{
     var filePath = files[id].path
     var stat = fs.statSync(filePath);
     var total = stat.size;
-    console.log(stat)
     if (req.headers.range) {
         var range = req.headers.range;
         var parts = range.replace(/bytes=/, "").split("-");

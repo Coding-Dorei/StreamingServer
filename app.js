@@ -9,4 +9,4 @@ app.use('/',express.static('public'))
 app.use('/',router)
 
 app.set('PORT',80)
-app.listen(app.get('PORT'),()=>{console.log(`server running on port${app.get('PORT')}`)})
+app.listen(app.get('PORT'))

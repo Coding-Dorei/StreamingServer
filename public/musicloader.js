@@ -6,7 +6,8 @@ sec = 0,
 min = 0,
 currentPlaying,
 files,
-nowPlaying
+nowPlaying,
+musicLength
 
 function init(){
     player = document.getElementById('player')
@@ -16,6 +17,7 @@ function init(){
     currentPlaying = 0
     player.onloadeddata = ()=>{
         progressbar.max = player.duration
+        musicLength = `${Math.round(player.duration/60).toString().padStart(2,"0")}:${Math.round(player.duration%60).toString().padStart(2,"0")}`
     }
     progressbar.onmousedown = ()=>{
         if(!player.paused) PlayPause()
@@ -50,7 +52,7 @@ function updateProgressbar(){
 function updateCurrentTime(){
     min = Math.round(player.currentTime / 60)
     sec = Math.round(player.currentTime % 60)
-    currentTime.innerHTML = min.toString().padStart(2,"0") + ":" + sec.toString().padStart(2,"0")
+    currentTime.innerHTML = min.toString().padStart(2,"0") + ":" + sec.toString().padStart(2,"0") + "/" + musicLength
 }
 
 function PlayPause(){
@@ -58,7 +60,6 @@ function PlayPause(){
         interval = setInterval(()=>{
             updateCurrentTime()
             updateProgressbar()
-            console.log(Math.round(player.currentTime))
         },1000)
         player.play()
     }
@@ -70,15 +71,21 @@ function PlayPause(){
 
 function next(){
     currentPlaying  = (currentPlaying + 1)%files.length
+    if(!player.paused) PlayPause()
     load()
+    PlayPause()
 }
 
 function prev(){
     currentPlaying = (currentPlaying - 1 + files.length)%files.length
+    if(!player.paused) PlayPause()
     load()
+    PlayPause()
 }
 
 function random(){
     currentPlaying = Math.round(Math.random() * (files.length-1))
+    if(!player.paused) PlayPause()
     load()
+    PlayPause()
 }
