@@ -8,5 +8,5 @@ app.use(morgan('dev'))
 app.use('/',express.static('public'))
 app.use('/',router)
 
-app.set('PORT',80)
+app.set('PORT',8080)
 app.listen(app.get('PORT'))
