@@ -7,14 +7,15 @@ min = 0,
 currentPlaying,
 files,
 nowPlaying,
-musicLength
+musicLength,
+list
 
 function init(){
     player = document.getElementById('player')
     progressbar = document.getElementById('progressbar')
     currentTime = document.getElementById('currentTime')
     nowPlaying = document.getElementById('nowPlaying')
-    currentPlaying = 0
+    list = document.getElementById('trackList')
     player.onloadeddata = ()=>{
         progressbar.max = player.duration
         musicLength = `${Math.round(player.duration/60).toString().padStart(2,"0")}:${Math.round(player.duration%60).toString().padStart(2,"0")}`
@@ -32,6 +33,7 @@ function init(){
         return res.json()
     }).then((data)=>{
         files = data
+        currentPlaying = Math.round(Math.random() * (files.length-1))
         load()
     })
     player.onended = random

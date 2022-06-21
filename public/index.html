@@ -20,5 +20,18 @@
         <button class="controlButton" onclick="next()">next</button>
         <button class="controlButton" onclick="random()">random</button>
     </div>
+    <select id="trackList" onchange="currentPlaying = list.selectedOptions[0].value;load()">
+        <script>
+            fetch("http://localhost/music/getList").then((res)=>{
+                return res.json()
+            }).then((data)=>{
+                let list = document.getElementById('trackList')
+                for(const idx in data){
+                    let tmp = new Option(data[idx].name,idx)
+                    list.append(tmp)
+                }
+            })
+        </script>
+    </select>
 </body>
 </html>

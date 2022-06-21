@@ -32,8 +32,6 @@ function fileList(dir,dirName){
     }
 }
 scanDir(musicDir,hierarchy)
-
-
 fileList(hierarchy,musicDir)
 
 module.exports = allFiles
