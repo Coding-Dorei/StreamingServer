@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 const fs = require('fs')
 const files = require('./musicList')
+const metaExt = require('metadata-extract')
 
 router.get('/',(req,res)=>{
     res.redirect('/index.html')
 })
-//C:\Users\lkjui\Music
 
 router.get('/music',(req,res)=>{
     let id = req.query.id
@@ -38,6 +38,13 @@ router.get('/music',(req,res)=>{
 
 router.get("/music/getList",(req,res)=>{
     res.send(files)
+})
+
+router.get('/music/getMetadata',(req,res)=>{
+    let id = req.query.id
+    metaExt(files[id].path).then((value)=>{
+        res.send(value)
+    })
 })
 
 module.exports = router

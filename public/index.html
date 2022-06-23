@@ -19,10 +19,11 @@
         <button class="controlButton" onclick="PlayPause()">play/pause</button>
         <button class="controlButton" onclick="next()">next</button>
         <button class="controlButton" onclick="random()">random</button>
+        <input type="checkbox" name="" id="randomEnabled">
     </div>
     <select id="trackList" onchange="currentPlaying = list.selectedOptions[0].value;load()">
         <script>
-            fetch("http://localhost/music/getList").then((res)=>{
+            fetch("http://192.168.0.9/music/getList").then((res)=>{
                 return res.json()
             }).then((data)=>{
                 let list = document.getElementById('trackList')
